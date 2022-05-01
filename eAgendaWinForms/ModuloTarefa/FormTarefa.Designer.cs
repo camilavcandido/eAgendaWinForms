@@ -74,8 +74,8 @@
             // 
             // listTarefasPendentes
             // 
-            this.listTarefasPendentes.FormattingEnabled = true;
             resources.ApplyResources(this.listTarefasPendentes, "listTarefasPendentes");
+            this.listTarefasPendentes.FormattingEnabled = true;
             this.listTarefasPendentes.Name = "listTarefasPendentes";
             // 
             // tabPage2
@@ -87,8 +87,8 @@
             // 
             // listTarefasConcluidas
             // 
-            this.listTarefasConcluidas.FormattingEnabled = true;
             resources.ApplyResources(this.listTarefasConcluidas, "listTarefasConcluidas");
+            this.listTarefasConcluidas.FormattingEnabled = true;
             this.listTarefasConcluidas.Name = "listTarefasConcluidas";
             // 
             // btnExcluir

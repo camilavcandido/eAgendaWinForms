@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace eAgendaWinForms
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         private Form formAtivo;
-        public Form1()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
@@ -38,7 +38,6 @@ namespace eAgendaWinForms
 
         }
 
-
         private void btnMenuTelaContatos_Click(object sender, EventArgs e)
         {
             FormContato tela = new FormContato();
@@ -53,6 +52,25 @@ namespace eAgendaWinForms
             MostrarTelaFormulario(formAtivo);
         }
 
+        private void buttonTarefas_Click(object sender, EventArgs e)
+        {
+            FormTarefa tela = new FormTarefa();
+            formAtivo = tela;
+            MostrarTelaFormulario(formAtivo);
+        }
 
+        private void buttonContatos_Click(object sender, EventArgs e)
+        {
+            FormContato tela = new FormContato();
+            formAtivo = tela;
+            MostrarTelaFormulario(formAtivo);
+        }
+
+        private void buttonCompromissos_Click(object sender, EventArgs e)
+        {
+            FormCompromisso tela = new FormCompromisso();
+            formAtivo = tela;
+            MostrarTelaFormulario(formAtivo);
+        }
     }
 }

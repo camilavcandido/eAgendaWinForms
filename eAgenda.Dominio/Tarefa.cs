@@ -7,6 +7,8 @@ namespace eAgenda.Dominio
 {
     public class Tarefa
     {
+      
+
         private List<ItemTarefa> itens = new List<ItemTarefa>();
         public int Numero { get; set; }
         public string Titulo { get; set; }
@@ -86,20 +88,23 @@ namespace eAgenda.Dominio
 
             return Math.Round(percentualConcluido, 2);
         }
-
-
         public string Validar()
         {
+
             StringBuilder sb = new StringBuilder();
 
             if (string.IsNullOrEmpty(Titulo))
                 sb.AppendLine("O título da tarefa é obrigatório!");
+
+         
 
             if (sb.Length == 0)
                 sb.Append("REGISTRO_VALIDO");
 
             return sb.ToString();
         }
+
+
 
 
     }

@@ -36,12 +36,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listCompromissosPassados = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listCompromissosFuturos = new System.Windows.Forms.ListBox();
-            this.btnFiltrar = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dataInicioFiltro = new System.Windows.Forms.DateTimePicker();
-            this.dataFinalFiltro = new System.Windows.Forms.DateTimePicker();
             this.btnLimparFiltro = new System.Windows.Forms.Button();
+            this.dataFinalFiltro = new System.Windows.Forms.DateTimePicker();
+            this.dataInicioFiltro = new System.Windows.Forms.DateTimePicker();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.listCompromissosFuturos = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -51,12 +51,12 @@
             // 
             // btnInserir
             // 
-            this.btnInserir.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.btnInserir.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnInserir.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnInserir.FlatAppearance.BorderSize = 0;
             this.btnInserir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
             this.btnInserir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnInserir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.btnInserir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.btnInserir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInserir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInserir.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -71,12 +71,12 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.btnExcluir.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnExcluir.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnExcluir.FlatAppearance.BorderSize = 0;
             this.btnExcluir.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
             this.btnExcluir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnExcluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.btnExcluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.btnExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcluir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnExcluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -92,13 +92,13 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.btnEditar.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnEditar.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnEditar.FlatAppearance.BorderSize = 0;
             this.btnEditar.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
             this.btnEditar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnEditar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.btnEditar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumTurquoise;
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnEditar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -113,7 +113,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.panel1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnInserir);
             this.panel1.Controls.Add(this.btnExcluir);
@@ -128,12 +128,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(12, 24);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 28);
+            this.label1.Size = new System.Drawing.Size(157, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Compromissos";
             // 
@@ -174,15 +174,40 @@
             this.tabPage1.Text = "Compromissos Futuros";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // listCompromissosFuturos
+            // btnLimparFiltro
             // 
-            this.listCompromissosFuturos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listCompromissosFuturos.FormattingEnabled = true;
-            this.listCompromissosFuturos.ItemHeight = 15;
-            this.listCompromissosFuturos.Location = new System.Drawing.Point(3, 3);
-            this.listCompromissosFuturos.Name = "listCompromissosFuturos";
-            this.listCompromissosFuturos.Size = new System.Drawing.Size(546, 274);
-            this.listCompromissosFuturos.TabIndex = 2;
+            this.btnLimparFiltro.Location = new System.Drawing.Point(464, 310);
+            this.btnLimparFiltro.Name = "btnLimparFiltro";
+            this.btnLimparFiltro.Size = new System.Drawing.Size(85, 23);
+            this.btnLimparFiltro.TabIndex = 7;
+            this.btnLimparFiltro.Text = "Limpar Filtro";
+            this.btnLimparFiltro.UseVisualStyleBackColor = true;
+            this.btnLimparFiltro.Click += new System.EventHandler(this.btnLimparFiltro_Click);
+            // 
+            // dataFinalFiltro
+            // 
+            this.dataFinalFiltro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dataFinalFiltro.Location = new System.Drawing.Point(301, 283);
+            this.dataFinalFiltro.Name = "dataFinalFiltro";
+            this.dataFinalFiltro.Size = new System.Drawing.Size(243, 23);
+            this.dataFinalFiltro.TabIndex = 6;
+            // 
+            // dataInicioFiltro
+            // 
+            this.dataInicioFiltro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dataInicioFiltro.Location = new System.Drawing.Point(6, 283);
+            this.dataInicioFiltro.Name = "dataInicioFiltro";
+            this.dataInicioFiltro.Size = new System.Drawing.Size(231, 23);
+            this.dataInicioFiltro.TabIndex = 5;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(255, 289);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(25, 15);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Até";
             // 
             // btnFiltrar
             // 
@@ -194,40 +219,15 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
-            // label10
+            // listCompromissosFuturos
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(255, 289);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(25, 15);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Até";
-            // 
-            // dataInicioFiltro
-            // 
-            this.dataInicioFiltro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dataInicioFiltro.Location = new System.Drawing.Point(6, 283);
-            this.dataInicioFiltro.Name = "dataInicioFiltro";
-            this.dataInicioFiltro.Size = new System.Drawing.Size(231, 23);
-            this.dataInicioFiltro.TabIndex = 5;
-            // 
-            // dataFinalFiltro
-            // 
-            this.dataFinalFiltro.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dataFinalFiltro.Location = new System.Drawing.Point(301, 283);
-            this.dataFinalFiltro.Name = "dataFinalFiltro";
-            this.dataFinalFiltro.Size = new System.Drawing.Size(243, 23);
-            this.dataFinalFiltro.TabIndex = 6;
-            // 
-            // btnLimparFiltro
-            // 
-            this.btnLimparFiltro.Location = new System.Drawing.Point(464, 310);
-            this.btnLimparFiltro.Name = "btnLimparFiltro";
-            this.btnLimparFiltro.Size = new System.Drawing.Size(85, 23);
-            this.btnLimparFiltro.TabIndex = 7;
-            this.btnLimparFiltro.Text = "Limpar Filtro";
-            this.btnLimparFiltro.UseVisualStyleBackColor = true;
-            this.btnLimparFiltro.Click += new System.EventHandler(this.btnLimparFiltro_Click);
+            this.listCompromissosFuturos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.listCompromissosFuturos.FormattingEnabled = true;
+            this.listCompromissosFuturos.ItemHeight = 15;
+            this.listCompromissosFuturos.Location = new System.Drawing.Point(3, 3);
+            this.listCompromissosFuturos.Name = "listCompromissosFuturos";
+            this.listCompromissosFuturos.Size = new System.Drawing.Size(546, 274);
+            this.listCompromissosFuturos.TabIndex = 2;
             // 
             // tabControl1
             // 

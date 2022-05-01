@@ -123,12 +123,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(34, 31);
+            this.label1.Location = new System.Drawing.Point(37, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 32);
+            this.label1.Size = new System.Drawing.Size(99, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Contatos";
             // 
@@ -156,11 +156,12 @@
             // 
             // listContatos
             // 
+            this.listContatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listContatos.FormattingEnabled = true;
             this.listContatos.ItemHeight = 15;
-            this.listContatos.Location = new System.Drawing.Point(20, 6);
+            this.listContatos.Location = new System.Drawing.Point(3, 3);
             this.listContatos.Name = "listContatos";
-            this.listContatos.Size = new System.Drawing.Size(555, 304);
+            this.listContatos.Size = new System.Drawing.Size(546, 330);
             this.listContatos.TabIndex = 0;
             // 
             // tabPage2
@@ -176,11 +177,12 @@
             // 
             // listContatosAgrupados
             // 
+            this.listContatosAgrupados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listContatosAgrupados.FormattingEnabled = true;
             this.listContatosAgrupados.ItemHeight = 15;
-            this.listContatosAgrupados.Location = new System.Drawing.Point(20, 6);
+            this.listContatosAgrupados.Location = new System.Drawing.Point(3, 3);
             this.listContatosAgrupados.Name = "listContatosAgrupados";
-            this.listContatosAgrupados.Size = new System.Drawing.Size(555, 304);
+            this.listContatosAgrupados.Size = new System.Drawing.Size(546, 330);
             this.listContatosAgrupados.TabIndex = 1;
             // 
             // FormContato
