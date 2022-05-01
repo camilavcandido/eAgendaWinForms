@@ -1,0 +1,166 @@
+﻿using eAgenda.Dominio;
+using eAgenda.Infra.Arquivos;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace eAgendaWinForms.ModuloTarefa
+{
+    public partial class FormTarefa : Form
+    {
+
+        protected RepositorioTarefa repositorioTarefa;
+
+        public FormTarefa()
+        {
+
+            SerializadorJson serializador = new SerializadorJson();
+
+            repositorioTarefa = new RepositorioTarefa(serializador);
+
+            InitializeComponent();
+            CarregarTarefas();
+        }
+
+        private void CarregarTarefas()
+        {
+            List<Tarefa> tarefasConcluidas = repositorioTarefa.SelecionarTarefasConcluidas();
+
+            listTarefasConcluidas.Items.Clear();
+
+            foreach (Tarefa t in tarefasConcluidas)
+            {
+                listTarefasConcluidas.Items.Add(t);
+            }
+
+            List<Tarefa> tarefasPendentes = repositorioTarefa.SelecionarTarefasPendentes();
+
+            listTarefasPendentes.Items.Clear();
+
+            foreach (Tarefa t in tarefasPendentes)
+            {
+                listTarefasPendentes.Items.Add(t);
+            }
+        }
+
+        private void btnInserir_Click(object sender, System.EventArgs e)
+        {
+
+            CadastroTarefa tela = new CadastroTarefa();
+            tela.Tarefa = new Tarefa();
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+
+                string resultadoValidacao = tela.Tarefa.Validar();
+
+                if (resultadoValidacao == "REGISTRO_VALIDO")
+                {
+                    repositorioTarefa.Inserir(tela.Tarefa);
+                    MessageBox.Show("Tarefa cadastrada com sucesso!", "Cadastro de Tarefas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show($"{resultadoValidacao}", "Cadastro de Tarefas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                CarregarTarefas();
+            }
+        }
+
+        private void btnEditar_Click(object sender, System.EventArgs e)
+        {
+
+            Tarefa tarefaSelecionada = (Tarefa)listTarefasPendentes.SelectedItem;
+
+            if (tarefaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro",
+                "Edição de Tarefas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            CadastroTarefa tela = new CadastroTarefa();
+
+            tela.Tarefa = tarefaSelecionada;
+
+            DialogResult resultado = tela.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                repositorioTarefa.Editar(tela.Tarefa);
+                CarregarTarefas();
+            }
+        }
+
+        private void btnExcluir_Click(object sender, System.EventArgs e)
+        {
+            Tarefa tarefaSelecionada = (Tarefa)listTarefasPendentes.SelectedItem;
+
+            if (tarefaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro",
+                "Exclusão de Tarefas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult resultado = MessageBox.Show("Deseja realmente excluir a tarefa?",
+                "Exclusão de Tarefas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.OK)
+            {
+                repositorioTarefa.Excluir(tarefaSelecionada);
+                CarregarTarefas();
+            }
+        }
+
+        private void btnAdicionarItem_Click(object sender, System.EventArgs e)
+        {
+            Tarefa tarefaSelecionada = (Tarefa)listTarefasPendentes.SelectedItem;
+
+            if (tarefaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro",
+                "Edição de Tarefas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            CadastroItensTarefa tela = new CadastroItensTarefa(tarefaSelecionada);
+
+            if (tela.ShowDialog() == DialogResult.OK)
+            {
+                List<ItemTarefa> itens = tela.ItensAdicionados;
+
+                repositorioTarefa.AdicionarItens(tarefaSelecionada, itens);
+
+                CarregarTarefas();
+            }
+        }
+
+        private void btnAtualizarItem_Click(object sender, System.EventArgs e)
+        {
+            Tarefa tarefaSelecionada = (Tarefa)listTarefasPendentes.SelectedItem;
+
+            if (tarefaSelecionada == null)
+            {
+                MessageBox.Show("Selecione uma tarefa primeiro",
+                "Edição de Tarefas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            AtualizacaoItensTarefa tela = new AtualizacaoItensTarefa(tarefaSelecionada);
+
+            if (tela.ShowDialog() == DialogResult.OK)
+            {
+                List<ItemTarefa> itensConcluidos = tela.ItensConcluidos;
+
+                List<ItemTarefa> itensPendentes = tela.ItensPendentes;
+
+                repositorioTarefa.AtualizarItens(tarefaSelecionada, itensConcluidos, itensPendentes);
+                CarregarTarefas();
+            }
+        }
+
+    }
+}
