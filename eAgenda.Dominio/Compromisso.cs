@@ -13,15 +13,15 @@ namespace eAgenda.Dominio
         public string Local { get; set; }
 
         public DateTime DataCompromisso { get; set; }
-        public DateTime HoraInicio { get; set; }
-        public DateTime HoraTermino { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraTermino { get; set; }
         public Contato Contato { get; set; }
 
         public Compromisso()
         {
         }
         public Compromisso(int numero, string assunto, string local,
-            DateTime dataCompromisso, DateTime horaInicio, DateTime horaTermino,
+            DateTime dataCompromisso, TimeSpan horaInicio, TimeSpan horaTermino,
             Contato contato) : this()
         {
             Numero = numero;
@@ -70,7 +70,7 @@ namespace eAgenda.Dominio
 
             return $"Número: {Numero} |Assunto: {Assunto} |Local: {Local} |Data: " +
                 $"{DataCompromisso.ToShortDateString()}" +
-                $"|Inicio: {HoraInicio.ToShortTimeString()} |Termino: {HoraTermino.ToShortTimeString()} |Contato Relacionado: {contatoRelacionado}";
+                $"|Inicio: {HoraInicio} |Termino: {HoraTermino} |Contato Relacionado: {contatoRelacionado}";
         }
 
 

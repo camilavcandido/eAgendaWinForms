@@ -25,8 +25,18 @@ namespace eAgendaWinForms.ModuloCompromisso
             serializador = new SerializadorJson();
             repositorioContato = new RepositorioContato(serializador);
             InitializeComponent();
+            CarregarContatos();
+                  
         }
 
+        private void CarregarContatos()
+        {
+            List<Contato> contatos = repositorioContato.SelecionarTodos();
+            foreach (Contato c in contatos)
+            {
+                comboBoxContatos.Items.Add(c);
+            }
+        }
 
         public Compromisso Compromisso
         {
@@ -47,23 +57,17 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-
-
-            int intIDcontato = Convert.ToInt32(txtContatoCompromisso.Text);
-            Contato contato = repositorioContato.SelecionarRegistro(intIDcontato);
-            try
-            {
+            comboBoxContatos.Show();
+            Contato contatoSelecionado = (Contato)comboBoxContatos.SelectedItem;   
+   
                 Compromisso.Assunto = txtAssuntoCompromisso.Text;
                 Compromisso.Local = txtLocalCompromisso.Text;
                 compromisso.DataCompromisso = txtDataCompromisso.Value;
-                compromisso.HoraInicio = Convert.ToDateTime(txtHoraInicio.Text);
-                compromisso.HoraTermino = Convert.ToDateTime(txtHoraTermino.Text);
-                compromisso.Contato = contato;
-            }
-            catch
-            {
+                compromisso.HoraInicio = TimeSpan.Parse(txtHoraInicio.Text);
+                compromisso.HoraTermino = TimeSpan.Parse(txtHoraTermino.Text);
+                compromisso.Contato = contatoSelecionado;
+            
 
-            }
         }
 
 

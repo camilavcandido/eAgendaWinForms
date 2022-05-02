@@ -41,14 +41,14 @@
             this.txtHoraTermino = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDataCompromisso = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtContatoCompromisso = new System.Windows.Forms.TextBox();
+            this.comboBoxContatos = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
             this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancelar.Location = new System.Drawing.Point(224, 342);
+            this.btnCancelar.Location = new System.Drawing.Point(226, 350);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(72, 39);
             this.btnCancelar.TabIndex = 25;
@@ -59,7 +59,7 @@
             // 
             this.btnGravar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnGravar.Location = new System.Drawing.Point(146, 342);
+            this.btnGravar.Location = new System.Drawing.Point(148, 350);
             this.btnGravar.Name = "btnGravar";
             this.btnGravar.Size = new System.Drawing.Size(72, 39);
             this.btnGravar.TabIndex = 24;
@@ -160,30 +160,30 @@
             this.txtDataCompromisso.TabIndex = 28;
             this.txtDataCompromisso.Value = new System.DateTime(2022, 5, 2, 15, 46, 46, 0);
             // 
-            // label5
+            // comboBoxContatos
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 277);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 15);
-            this.label5.TabIndex = 30;
-            this.label5.Text = "Relacionado ao Contato:";
+            this.comboBoxContatos.FormattingEnabled = true;
+            this.comboBoxContatos.Location = new System.Drawing.Point(24, 310);
+            this.comboBoxContatos.Name = "comboBoxContatos";
+            this.comboBoxContatos.Size = new System.Drawing.Size(256, 23);
+            this.comboBoxContatos.TabIndex = 32;
             // 
-            // txtContatoCompromisso
+            // label8
             // 
-            this.txtContatoCompromisso.Location = new System.Drawing.Point(26, 295);
-            this.txtContatoCompromisso.Name = "txtContatoCompromisso";
-            this.txtContatoCompromisso.PlaceholderText = "Informe o ID do Contato";
-            this.txtContatoCompromisso.Size = new System.Drawing.Size(144, 23);
-            this.txtContatoCompromisso.TabIndex = 31;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(22, 292);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(137, 15);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Relacionado ao Contato:";
             // 
             // CadastroCompromisso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 393);
-            this.Controls.Add(this.txtContatoCompromisso);
-            this.Controls.Add(this.label5);
+            this.ClientSize = new System.Drawing.Size(310, 402);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.comboBoxContatos);
             this.Controls.Add(this.txtDataCompromisso);
             this.Controls.Add(this.txtHoraTermino);
             this.Controls.Add(this.label7);
@@ -222,7 +222,7 @@
         private System.Windows.Forms.TextBox txtHoraTermino;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker txtDataCompromisso;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtContatoCompromisso;
+        private System.Windows.Forms.ComboBox comboBoxContatos;
+        private System.Windows.Forms.Label label8;
     }
 }
