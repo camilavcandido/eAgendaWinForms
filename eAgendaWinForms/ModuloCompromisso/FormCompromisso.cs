@@ -16,13 +16,12 @@ namespace eAgendaWinForms.ModuloCompromisso
     {
         private RepositorioCompromisso repositorioCompromisso;
         private RepositorioContato repositorioContato;
-        List<Contato> contatos;
         public FormCompromisso()
         {
             InitializeComponent();
             SerializadorJson serializador = new SerializadorJson();
             repositorioCompromisso = new RepositorioCompromisso(serializador);
-            contatos = serializador.CarregarContatosDoArquivo();
+            repositorioContato = new RepositorioContato(serializador);
             CarregarCompromissos();
         }
 
@@ -53,7 +52,13 @@ namespace eAgendaWinForms.ModuloCompromisso
 
             DialogResult resultado = tela.ShowDialog();
 
-            if (resultado == DialogResult.OK)
+            bool contatoValido = ValidarContato(tela.Compromisso);
+            if (contatoValido == false)
+            {
+                MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (resultado == DialogResult.OK)
             {
                 string resultadoValidacao = tela.Compromisso.Validar();
 
@@ -89,7 +94,14 @@ namespace eAgendaWinForms.ModuloCompromisso
 
             DialogResult resultado = tela.ShowDialog();
 
-            if (resultado == DialogResult.OK)
+            bool contatoValido = ValidarContato(tela.Compromisso);
+
+            if (contatoValido == false)
+            {
+                MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (resultado == DialogResult.OK)
             {
                 repositorioCompromisso.Editar(tela.Compromisso);
                 CarregarCompromissos();
@@ -122,7 +134,7 @@ namespace eAgendaWinForms.ModuloCompromisso
             DateTime dataI = dataInicioFiltro.Value;
             DateTime dataF = dataFinalFiltro.Value;
 
-            List<Compromisso> compromissos = 
+            List<Compromisso> compromissos =
                 repositorioCompromisso.SelecionarCompromissosPorPeriodo(dataI, dataF);
 
             listCompromissosFuturos.Items.Clear();
@@ -153,10 +165,14 @@ namespace eAgendaWinForms.ModuloCompromisso
             List<Contato> contatos = repositorioContato.SelecionarTodos();
             foreach (Contato c in contatos)
             {
-                if (c.Numero == compromisso.Contato.Numero)
+                if(compromisso.Contato != null)
                 {
-                    contatoValido = true;
+                    if (c.Numero == compromisso.Contato.Numero)
+                    {
+                        contatoValido = true;
+                    }
                 }
+
             }
 
             return contatoValido;

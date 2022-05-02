@@ -77,6 +77,8 @@
             resources.ApplyResources(this.listTarefasPendentes, "listTarefasPendentes");
             this.listTarefasPendentes.FormattingEnabled = true;
             this.listTarefasPendentes.Name = "listTarefasPendentes";
+            this.listTarefasPendentes.HorizontalScrollbar = true;
+
             // 
             // tabPage2
             // 
@@ -90,6 +92,8 @@
             resources.ApplyResources(this.listTarefasConcluidas, "listTarefasConcluidas");
             this.listTarefasConcluidas.FormattingEnabled = true;
             this.listTarefasConcluidas.Name = "listTarefasConcluidas";
+            this.listTarefasConcluidas.HorizontalScrollbar = true;
+
             // 
             // btnExcluir
             // 

@@ -163,6 +163,7 @@
             this.listContatos.Name = "listContatos";
             this.listContatos.Size = new System.Drawing.Size(546, 330);
             this.listContatos.TabIndex = 0;
+            this.listContatos.HorizontalScrollbar = true;
             // 
             // tabPage2
             // 
@@ -184,6 +185,8 @@
             this.listContatosAgrupados.Name = "listContatosAgrupados";
             this.listContatosAgrupados.Size = new System.Drawing.Size(546, 330);
             this.listContatosAgrupados.TabIndex = 1;
+            this.listContatosAgrupados.HorizontalScrollbar = true;
+
             // 
             // FormContato
             // 

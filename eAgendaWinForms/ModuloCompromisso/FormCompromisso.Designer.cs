@@ -157,6 +157,7 @@
             this.listCompromissosPassados.Name = "listCompromissosPassados";
             this.listCompromissosPassados.Size = new System.Drawing.Size(546, 330);
             this.listCompromissosPassados.TabIndex = 1;
+            this.listCompromissosPassados.HorizontalScrollbar = true;
             // 
             // tabPage1
             // 
@@ -228,6 +229,7 @@
             this.listCompromissosFuturos.Name = "listCompromissosFuturos";
             this.listCompromissosFuturos.Size = new System.Drawing.Size(546, 274);
             this.listCompromissosFuturos.TabIndex = 2;
+            this.listCompromissosFuturos.HorizontalScrollbar = true;
             // 
             // tabControl1
             // 
