@@ -11,11 +11,13 @@ namespace eAgendaWinForms.ModuloContato
     public partial class FormContato : Form
     {
         private RepositorioContato repositorioContato;
+        private RepositorioCompromisso repositorioCompromisso;
 
         public FormContato()
         {
             SerializadorJson serializador = new SerializadorJson();
             repositorioContato = new RepositorioContato(serializador);
+            repositorioCompromisso = new RepositorioCompromisso(serializador);
             InitializeComponent();
             CarregarContatos();
         }
@@ -115,10 +117,27 @@ namespace eAgendaWinForms.ModuloContato
                 return;
             }
 
+            bool contatoPossuiCompromisso = false;
+            List<Compromisso> compromissos = repositorioCompromisso.SelecionarCompromissosFuturos();
+            foreach (Compromisso c in compromissos)
+            {
+                if (contatoSelecionado.Numero == c.Contato.Numero)
+                    contatoPossuiCompromisso = true;
+                break;
+              
+            }
+
             DialogResult resultado = MessageBox.Show("Deseja realmente excluir o contato?",
                 "Exclusão de Contatos", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (resultado == DialogResult.OK)
+        
+            if(contatoPossuiCompromisso == true)
+            {
+                MessageBox.Show("Não é possível excluir contato relacionado a um compromisso futuro",
+               "Exclusão de Contatos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            else if (resultado == DialogResult.OK)
             {
                 repositorioContato.Excluir(contatoSelecionado);
                 CarregarContatos();

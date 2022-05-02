@@ -177,5 +177,6 @@ namespace eAgendaWinForms.ModuloCompromisso
 
             return contatoValido;
         }
+
     }
 }
