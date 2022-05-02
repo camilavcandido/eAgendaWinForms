@@ -57,7 +57,7 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            comboBoxContatos.Show();
+            
             Contato contatoSelecionado = (Contato)comboBoxContatos.SelectedItem;   
    
                 Compromisso.Assunto = txtAssuntoCompromisso.Text;

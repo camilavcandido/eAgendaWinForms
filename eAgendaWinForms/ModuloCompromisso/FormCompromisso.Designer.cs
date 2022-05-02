@@ -152,12 +152,12 @@
             // 
             this.listCompromissosPassados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listCompromissosPassados.FormattingEnabled = true;
+            this.listCompromissosPassados.HorizontalScrollbar = true;
             this.listCompromissosPassados.ItemHeight = 15;
             this.listCompromissosPassados.Location = new System.Drawing.Point(3, 3);
             this.listCompromissosPassados.Name = "listCompromissosPassados";
             this.listCompromissosPassados.Size = new System.Drawing.Size(546, 330);
             this.listCompromissosPassados.TabIndex = 1;
-            this.listCompromissosPassados.HorizontalScrollbar = true;
             // 
             // tabPage1
             // 
@@ -224,12 +224,12 @@
             // 
             this.listCompromissosFuturos.Dock = System.Windows.Forms.DockStyle.Top;
             this.listCompromissosFuturos.FormattingEnabled = true;
+            this.listCompromissosFuturos.HorizontalScrollbar = true;
             this.listCompromissosFuturos.ItemHeight = 15;
             this.listCompromissosFuturos.Location = new System.Drawing.Point(3, 3);
             this.listCompromissosFuturos.Name = "listCompromissosFuturos";
             this.listCompromissosFuturos.Size = new System.Drawing.Size(546, 274);
             this.listCompromissosFuturos.TabIndex = 2;
-            this.listCompromissosFuturos.HorizontalScrollbar = true;
             // 
             // tabControl1
             // 

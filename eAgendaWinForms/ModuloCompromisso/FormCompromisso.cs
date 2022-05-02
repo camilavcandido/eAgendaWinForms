@@ -63,14 +63,7 @@ namespace eAgendaWinForms.ModuloCompromisso
                 }
                 else
                 {
-                    //bool contatoValido = ValidarContato(tela.Compromisso);
-                    //if (contatoValido == false)
-                    //{
-                    //    MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
-                    //        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    //}
-                    //else
-                    //{
+
                     string resultadoValidacao = tela.Compromisso.Validar();
 
                     if (resultadoValidacao == "REGISTRO_VALIDO")
