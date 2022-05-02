@@ -96,7 +96,7 @@ namespace eAgendaWinForms.ModuloTarefa
             {
                 if (ValidarTituloExiste(tela.Tarefa) == true)
                 {
-                    MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Cadastro de Tarefas",
+                    MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Edição de Tarefas",
                       MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
@@ -106,12 +106,12 @@ namespace eAgendaWinForms.ModuloTarefa
                     if (resultadoValidacao == "REGISTRO_VALIDO")
                     {
                         repositorioTarefa.Editar(tela.Tarefa);
-                        MessageBox.Show("Tarefa cadastrada com sucesso!", "Cadastro de Tarefas",
+                        MessageBox.Show("Tarefa Editada com sucesso!", "Edição de Tarefas",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show($"{resultadoValidacao}", "Cadastro de Tarefas",
+                        MessageBox.Show($"{resultadoValidacao}", "Edição de Tarefas",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                     }
@@ -137,6 +137,7 @@ namespace eAgendaWinForms.ModuloTarefa
             if (resultado == DialogResult.OK)
             {
                 repositorioTarefa.Excluir(tarefaSelecionada);
+                MessageBox.Show("Tarefa Excluída com sucesso", "Exclusão de Tarefas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CarregarTarefas();
             }
         }

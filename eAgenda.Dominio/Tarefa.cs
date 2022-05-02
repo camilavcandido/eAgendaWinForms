@@ -8,7 +8,6 @@ namespace eAgenda.Dominio
     public class Tarefa
     {
       
-
         private List<ItemTarefa> itens = new List<ItemTarefa>();
         public int Numero { get; set; }
         public string Titulo { get; set; }
@@ -30,29 +29,6 @@ namespace eAgenda.Dominio
             DataConclusao = null;
         }
 
-        public override string ToString()
-        {
-            string strPrioridade = "";
-
-            if (Prioridade == 1)
-                strPrioridade = "Baixa";
-            else if (Prioridade == 2)
-                strPrioridade = "Media";
-            else if (Prioridade == 3)
-                strPrioridade = "Alta";
-
-            var percentual = CalcularPercentualConcluido();
-
-            if (DataConclusao.HasValue)
-            {
-                return $"Número: {Numero}, Título: {Titulo}, Percentual: {percentual}%, " +
-                    $"Concluída: {DataConclusao.Value.ToShortDateString()}";
-            }
-
-            return $"Número: {Numero}, Título: {Titulo},  Prioridade: {strPrioridade}, " +
-                $"Data Criação: {DataCriacao.ToShortDateString()}, Percentual: {percentual}%";
-        }
-
         public void AdicionarItem(ItemTarefa item)
         {
             if (Itens.Exists(x => x.Equals(item)) == false)
@@ -69,14 +45,12 @@ namespace eAgenda.Dominio
             if (percentual == 100)
                 DataConclusao = DateTime.Now;
         }
-
         public void MarcarPendente(ItemTarefa item)
         {
             ItemTarefa itemTarefa = itens.Find(x => x.Equals(item));
 
             itemTarefa?.MarcarPendente();
         }
-
         public decimal CalcularPercentualConcluido()
         {
             if (itens.Count == 0)
@@ -101,9 +75,28 @@ namespace eAgenda.Dominio
 
             return sb.ToString();
         }
+        public override string ToString()
+        {
+            string strPrioridade = "";
 
+            if (Prioridade == 1)
+                strPrioridade = "Baixa";
+            else if (Prioridade == 2)
+                strPrioridade = "Media";
+            else if (Prioridade == 3)
+                strPrioridade = "Alta";
 
+            var percentual = CalcularPercentualConcluido();
 
+            if (DataConclusao.HasValue)
+            {
+                return $"Número {Numero}  | Título: {Titulo}, Percentual: {percentual}%, " +
+                    $"Concluída: {DataConclusao.Value.ToShortDateString()}";
+            }
+
+            return $"Número { Numero}  | Título: {Titulo},  Prioridade: {strPrioridade}, " +
+                $"Data Criação: {DataCriacao.ToShortDateString()}, Percentual: {percentual}%";
+        }
 
     }
 }

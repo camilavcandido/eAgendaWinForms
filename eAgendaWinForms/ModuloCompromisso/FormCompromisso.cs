@@ -90,7 +90,6 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            List<Contato> c = repositorioContato.SelecionarTodos();
 
             Compromisso compromissoSelecionado = (Compromisso)listCompromissosFuturos.SelectedItem;
 
@@ -112,12 +111,15 @@ namespace eAgendaWinForms.ModuloCompromisso
             if (contatoValido == false)
             {
                 MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (resultado == DialogResult.OK)
             {
                 repositorioCompromisso.Editar(tela.Compromisso);
+                MessageBox.Show("Compromisso editado com sucesso!", "Cadastro de Compromissos",
+                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CarregarCompromissos();
+
             }
         }
 

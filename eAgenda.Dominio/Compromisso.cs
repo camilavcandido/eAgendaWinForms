@@ -68,9 +68,9 @@ namespace eAgenda.Dominio
         {
             string contatoRelacionado = Contato is null ? "Não disponível" : Contato.Nome;
 
-            return $"{Numero} | {Assunto} | {Local} | " +
+            return $"Número: {Numero} |Assunto: {Assunto} |Local: {Local} |Data: " +
                 $"{DataCompromisso.ToShortDateString()}" +
-                $"| {HoraInicio.ToShortTimeString()} | {HoraTermino.ToShortTimeString()} |{contatoRelacionado}";
+                $"|Inicio: {HoraInicio.ToShortTimeString()} |Termino: {HoraTermino.ToShortTimeString()} |Contato Relacionado: {contatoRelacionado}";
         }
 
 

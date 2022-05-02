@@ -47,6 +47,8 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
+
+
             int intIDcontato = Convert.ToInt32(txtContatoCompromisso.Text);
             Contato contato = repositorioContato.SelecionarRegistro(intIDcontato);
             try

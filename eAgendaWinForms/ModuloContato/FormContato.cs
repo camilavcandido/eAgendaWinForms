@@ -167,6 +167,7 @@ namespace eAgendaWinForms.ModuloContato
             else if (resultado == DialogResult.OK)
             {
                 repositorioContato.Excluir(contatoSelecionado);
+                MessageBox.Show("Contato excluído com sucesso!", "Exclusão de Contatos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CarregarContatos();
             }
         }
