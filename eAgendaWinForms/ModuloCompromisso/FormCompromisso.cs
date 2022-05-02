@@ -52,26 +52,39 @@ namespace eAgendaWinForms.ModuloCompromisso
 
             DialogResult resultado = tela.ShowDialog();
 
-            bool contatoValido = ValidarContato(tela.Compromisso);
-            if (contatoValido == false)
-            {
-                MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (resultado == DialogResult.OK)
-            {
-                string resultadoValidacao = tela.Compromisso.Validar();
 
-                if (resultadoValidacao == "REGISTRO_VALIDO")
+            if (resultado == DialogResult.OK)
+            {
+                bool horarioDisponivel = ValidarHorarioCompromisso(tela.Compromisso);
+                if (horarioDisponivel == false)
                 {
-                    repositorioCompromisso.Inserir(tela.Compromisso);
-                    MessageBox.Show("Compromisso cadastrado com sucesso!", "Cadastro de Compromissos",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Já existe um compromisso neste intervalo de tempo", "Cadastro de Compromissos",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                    MessageBox.Show($"{resultadoValidacao}", "Cadastro de Compromissos",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                CarregarCompromissos();
+                {
+                    bool contatoValido = ValidarContato(tela.Compromisso);
+                    if (contatoValido == false)
+                    {
+                        MessageBox.Show("ID do contato não encotrado. Verifique a lista de contatos e tente novamente", "Cadastro de Compromissos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        string resultadoValidacao = tela.Compromisso.Validar();
+
+                        if (resultadoValidacao == "REGISTRO_VALIDO")
+                        {
+                            repositorioCompromisso.Inserir(tela.Compromisso);
+                            MessageBox.Show("Compromisso cadastrado com sucesso!", "Cadastro de Compromissos",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                            MessageBox.Show($"{resultadoValidacao}", "Cadastro de Compromissos",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    CarregarCompromissos();
+                }
             }
         }
 
@@ -165,7 +178,7 @@ namespace eAgendaWinForms.ModuloCompromisso
             List<Contato> contatos = repositorioContato.SelecionarTodos();
             foreach (Contato c in contatos)
             {
-                if(compromisso.Contato != null)
+                if (compromisso.Contato != null)
                 {
                     if (c.Numero == compromisso.Contato.Numero)
                     {
@@ -178,5 +191,21 @@ namespace eAgendaWinForms.ModuloCompromisso
             return contatoValido;
         }
 
+        private bool ValidarHorarioCompromisso(Compromisso compromisso)
+        {
+            bool horarioDisponivel = true;
+            List<Compromisso> compromissosFuturos = repositorioCompromisso.SelecionarCompromissosFuturos();
+            foreach (Compromisso c in compromissosFuturos)
+            {
+                if(c.DataCompromisso == compromisso.DataCompromisso)
+                {
+                    if (compromisso.HoraInicio >= c.HoraInicio && compromisso.HoraInicio <= c.HoraTermino)
+                        horarioDisponivel = false;
+                    break;
+                }
+
+            }
+            return horarioDisponivel;
+        }
     }
 }

@@ -40,14 +40,14 @@ namespace eAgendaWinForms.ModuloCompromisso
                 txtAssuntoCompromisso.Text = compromisso.Assunto;
                 txtLocalCompromisso.Text = compromisso.Local;
                 txtDataCompromisso.Value = txtDataCompromisso.Value;
+              
 
             }
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            string strIDcontato = txtContatoCompromisso.Text;
-            int intIDcontato = Convert.ToInt32(strIDcontato);
+            int intIDcontato = Convert.ToInt32(txtContatoCompromisso.Text);
             Contato contato = repositorioContato.SelecionarRegistro(intIDcontato);
             try
             {

@@ -12,9 +12,7 @@ namespace eAgendaWinForms.ModuloTarefa
 
         public FormTarefa()
         {
-
             SerializadorJson serializador = new SerializadorJson();
-
             repositorioTarefa = new RepositorioTarefa(serializador);
 
             InitializeComponent();
@@ -50,27 +48,29 @@ namespace eAgendaWinForms.ModuloTarefa
 
             DialogResult resultado = tela.ShowDialog();
 
-            if (ValidarTituloExiste(tela.Tarefa) == true)
+            if (resultado == DialogResult.OK)
             {
-                MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Cadastro de Tarefas",
-                  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (resultado == DialogResult.OK)
-            {
-
-                string resultadoValidacao = tela.Tarefa.Validar();
-
-                if (resultadoValidacao == "REGISTRO_VALIDO")
+                if (ValidarTituloExiste(tela.Tarefa) == true)
                 {
-                    repositorioTarefa.Inserir(tela.Tarefa);
-                    MessageBox.Show("Tarefa cadastrada com sucesso!", "Cadastro de Tarefas",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Cadastro de Tarefas",
+                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                    MessageBox.Show($"{resultadoValidacao}", "Cadastro de Tarefas",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                {
+                    string resultadoValidacao = tela.Tarefa.Validar();
 
-                CarregarTarefas();
+                    if (resultadoValidacao == "REGISTRO_VALIDO")
+                    {
+                        repositorioTarefa.Inserir(tela.Tarefa);
+                        MessageBox.Show("Tarefa cadastrada com sucesso!", "Cadastro de Tarefas",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        MessageBox.Show($"{resultadoValidacao}", "Cadastro de Tarefas",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    CarregarTarefas();
+                }
             }
         }
 
@@ -94,8 +94,29 @@ namespace eAgendaWinForms.ModuloTarefa
 
             if (resultado == DialogResult.OK)
             {
-                repositorioTarefa.Editar(tela.Tarefa);
-                CarregarTarefas();
+                if (ValidarTituloExiste(tela.Tarefa) == true)
+                {
+                    MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Cadastro de Tarefas",
+                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    string resultadoValidacao = tela.Tarefa.Validar();
+
+                    if (resultadoValidacao == "REGISTRO_VALIDO")
+                    {
+                        repositorioTarefa.Editar(tela.Tarefa);
+                        MessageBox.Show("Tarefa cadastrada com sucesso!", "Cadastro de Tarefas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"{resultadoValidacao}", "Cadastro de Tarefas",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                    CarregarTarefas();
+                }
             }
         }
 
@@ -174,7 +195,7 @@ namespace eAgendaWinForms.ModuloTarefa
             List<Tarefa> tarefas = repositorioTarefa.SelecionarTarefasPendentes();
             foreach (Tarefa t in tarefas)
             {
-                if(t.Titulo.ToLower() == tarefa.Titulo.ToLower())
+                if (t.Titulo.ToLower() == tarefa.Titulo.ToLower())
                 {
                     tituloExiste = true;
                 }

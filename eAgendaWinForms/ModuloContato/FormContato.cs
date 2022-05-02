@@ -59,31 +59,36 @@ namespace eAgendaWinForms.ModuloContato
             tela.Contato = new Contato();
             DialogResult resultado = tela.ShowDialog();
 
-            string validacaoCampos = ValidarCampos(tela.Contato);
-            if (validacaoCampos != "CAMPOS_VALIDOS")
-            {
-                MessageBox.Show($"{validacaoCampos}", "Cadastro de Contatos",
-                  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (resultado == DialogResult.OK)
-            {
-                string resultadoValidacao = tela.Contato.Validar();
 
-                if (resultadoValidacao == "REGISTRO_VALIDO")
+            if (resultado == DialogResult.OK)
+            {
+                string validacaoCampos = ValidarCampos(tela.Contato);
+                if (validacaoCampos != "CAMPOS_VALIDOS")
                 {
-                    repositorioContato.Inserir(tela.Contato);
-                    MessageBox.Show("Contato cadastrada com sucesso!", "Cadastro de Contatos",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{validacaoCampos}", "Cadastro de Contatos",
+                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                    MessageBox.Show($"{resultadoValidacao}", "Cadastro de Contatos",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                {
+                    string resultadoValidacao = tela.Contato.Validar();
+
+                    if (resultadoValidacao == "REGISTRO_VALIDO")
+                    {
+                        repositorioContato.Inserir(tela.Contato);
+                        MessageBox.Show("Contato cadastrada com sucesso!", "Cadastro de Contatos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        MessageBox.Show($"{resultadoValidacao}", "Cadastro de Contatos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
                 CarregarContatos();
             }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+
             Contato contatoSelecionado = (Contato)listContatos.SelectedItem;
 
             if (contatoSelecionado == null)
@@ -101,8 +106,30 @@ namespace eAgendaWinForms.ModuloContato
             DialogResult resultado = tela.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                repositorioContato.Editar(tela.Contato);
-                CarregarContatos();
+                string validacaoCampos = ValidarCampos(tela.Contato);
+                if (validacaoCampos != "CAMPOS_VALIDOS")
+                {
+                    MessageBox.Show($"{validacaoCampos}", "Cadastro de Contatos",
+                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                }
+                else
+                {
+                    string resultadoValidacao = tela.Contato.Validar();
+
+                    if (resultadoValidacao == "REGISTRO_VALIDO")
+                    {
+                        repositorioContato.Editar(tela.Contato);
+                        MessageBox.Show("Contato Editado com sucesso!", "Cadastro de Contatos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CarregarContatos();
+
+                    }
+                    else
+                        MessageBox.Show($"{resultadoValidacao}", "Cadastro de Contatos",
+                      MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
             }
         }
 
@@ -124,14 +151,14 @@ namespace eAgendaWinForms.ModuloContato
                 if (contatoSelecionado.Numero == c.Contato.Numero)
                     contatoPossuiCompromisso = true;
                 break;
-              
+
             }
 
             DialogResult resultado = MessageBox.Show("Deseja realmente excluir o contato?",
                 "Exclusão de Contatos", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-        
-            if(contatoPossuiCompromisso == true)
+
+            if (contatoPossuiCompromisso == true)
             {
                 MessageBox.Show("Não é possível excluir contato relacionado a um compromisso futuro",
                "Exclusão de Contatos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -157,12 +184,16 @@ namespace eAgendaWinForms.ModuloContato
             {
                 try
                 {
-                    if (c.Nome.ToLower() == contato.Nome.ToLower())
-                        nomeExiste = true;
-                    if (c.Email.ToLower() == contato.Email.ToLower())
-                        emailExiste = true;
-                    if (c.Telefone.ToLower() == contato.Telefone.ToLower())
-                        telefoneExiste = true;
+                    if (c.Numero != contato.Numero)
+                    {
+                        if (c.Nome.ToLower() == contato.Nome.ToLower())
+                            nomeExiste = true;
+                        if (c.Email.ToLower() == contato.Email.ToLower())
+                            emailExiste = true;
+                        if (c.Telefone.ToLower() == contato.Telefone.ToLower())
+                            telefoneExiste = true;
+                    }
+
                 }
                 catch { }
 

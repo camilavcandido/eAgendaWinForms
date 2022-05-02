@@ -154,11 +154,11 @@
             // txtDataCompromisso
             // 
             this.txtDataCompromisso.Location = new System.Drawing.Point(26, 177);
-            this.txtDataCompromisso.MinDate = new System.DateTime(2022, 4, 30, 22, 26, 45, 0);
+            this.txtDataCompromisso.MinDate = new System.DateTime(2022, 5, 2, 0, 0, 0, 0);
             this.txtDataCompromisso.Name = "txtDataCompromisso";
             this.txtDataCompromisso.Size = new System.Drawing.Size(235, 23);
             this.txtDataCompromisso.TabIndex = 28;
-            this.txtDataCompromisso.Value = new System.DateTime(2022, 4, 30, 22, 26, 45, 0);
+            this.txtDataCompromisso.Value = new System.DateTime(2022, 5, 2, 15, 46, 46, 0);
             // 
             // label5
             // 
@@ -200,6 +200,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CadastroCompromisso";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Compromisso";
             this.ResumeLayout(false);
             this.PerformLayout();
