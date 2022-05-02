@@ -8,7 +8,7 @@ namespace eAgenda.Infra.Arquivos
     public class SerializadorJson : ISerializador
     {
         private const string arquivoTarefas = @"C:\temp\eAgendaTarefas1.json";
-        private const string arquivoContatos = @"C:\temp\eAgendaContatos1.json";
+        private const string arquivoContatos = @"C:\temp\eAgendaContatos.json";
         private const string arquivoCompromissos = @"C:\temp\eAgendaCompromissos.json";
 
         public List<Tarefa> CarregarTarefasDoArquivo()

@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace eAgendaWinForms.ModuloContato
 {
@@ -21,8 +22,8 @@ namespace eAgendaWinForms.ModuloContato
 
         private void CarregarContatos()
         {
-                       
-                List<Contato> contatos = repositorioContato.SelecionarTodos();
+
+            List<Contato> contatos = repositorioContato.SelecionarTodos();
             listContatos.Items.Clear();
 
             foreach (Contato c in contatos)
@@ -30,12 +31,13 @@ namespace eAgendaWinForms.ModuloContato
                 listContatos.Items.Add(c);
             }
 
-           var contatosAgrupados = repositorioContato.SelecionarTodos().GroupBy(x => x.Cargo);
-           listContatosAgrupados.Items.Clear();
+            var contatosAgrupados = repositorioContato.SelecionarTodos().GroupBy(x => x.Cargo);
+            listContatosAgrupados.Items.Clear();
 
             foreach (var contatoAgrupado in contatosAgrupados)
             {
                 string nomeCargo = contatoAgrupado.Key.ToUpper();
+
                 listContatosAgrupados.Items.Add(nomeCargo);
 
                 foreach (Contato contatoDisponivel in contatos)
@@ -53,11 +55,15 @@ namespace eAgendaWinForms.ModuloContato
         {
             CadastroContato tela = new CadastroContato();
             tela.Contato = new Contato();
-
-
             DialogResult resultado = tela.ShowDialog();
 
-            if (resultado == DialogResult.OK)
+            string validacaoCampos = ValidarCampos(tela.Contato);
+            if (validacaoCampos != "CAMPOS_VALIDOS")
+            {
+                MessageBox.Show($"{validacaoCampos}", "Cadastro de Contatos",
+                  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (resultado == DialogResult.OK)
             {
                 string resultadoValidacao = tela.Contato.Validar();
 
@@ -85,12 +91,12 @@ namespace eAgendaWinForms.ModuloContato
                 return;
             }
 
+
             CadastroContato tela = new();
 
             tela.Contato = contatoSelecionado;
 
             DialogResult resultado = tela.ShowDialog();
-
             if (resultado == DialogResult.OK)
             {
                 repositorioContato.Editar(tela.Contato);
@@ -119,7 +125,46 @@ namespace eAgendaWinForms.ModuloContato
             }
         }
 
+        #region validacoes
 
+        //verifica que se o nome, email e telefone já estão sendo utilizados;
+        private string ValidarCampos(Contato contato)
+        {
+            bool nomeExiste = false, emailExiste = false, telefoneExiste = false;
+
+            List<Contato> contatos = repositorioContato.SelecionarTodos();
+
+            foreach (Contato c in contatos)
+            {
+                try
+                {
+                    if (c.Nome.ToLower() == contato.Nome.ToLower())
+                        nomeExiste = true;
+                    if (c.Email.ToLower() == contato.Email.ToLower())
+                        emailExiste = true;
+                    if (c.Telefone.ToLower() == contato.Telefone.ToLower())
+                        telefoneExiste = true;
+                }
+                catch { }
+
+            }
+
+            StringBuilder sb = new StringBuilder();
+            if (nomeExiste)
+                sb.AppendLine("Nome já utilizado");
+            if (emailExiste)
+                sb.AppendLine("Email já utilizado");
+            if (telefoneExiste)
+                sb.AppendLine("Telefone já utilizado");
+
+            if (sb.Length == 0)
+                sb.Append("CAMPOS_VALIDOS");
+
+            return sb.ToString();
+        }
+
+
+        #endregion
 
 
     }

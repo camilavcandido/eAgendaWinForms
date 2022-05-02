@@ -15,12 +15,14 @@ namespace eAgendaWinForms.ModuloCompromisso
     public partial class FormCompromisso : Form
     {
         private RepositorioCompromisso repositorioCompromisso;
-
+        private RepositorioContato repositorioContato;
+        List<Contato> contatos;
         public FormCompromisso()
         {
+            InitializeComponent();
             SerializadorJson serializador = new SerializadorJson();
             repositorioCompromisso = new RepositorioCompromisso(serializador);
-            InitializeComponent();
+            contatos = serializador.CarregarContatosDoArquivo();
             CarregarCompromissos();
         }
 
@@ -44,13 +46,10 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         }
 
-
-
         private void btnInserir_Click(object sender, EventArgs e)
         {
             CadastroCompromisso tela = new();
             tela.Compromisso = new Compromisso();
-
 
             DialogResult resultado = tela.ShowDialog();
 
@@ -73,6 +72,8 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            List<Contato> c = repositorioContato.SelecionarTodos();
+
             Compromisso compromissoSelecionado = (Compromisso)listCompromissosFuturos.SelectedItem;
 
             if (compromissoSelecionado == null)
@@ -144,6 +145,21 @@ namespace eAgendaWinForms.ModuloCompromisso
             {
                 listCompromissosFuturos.Items.Add(c);
             }
+        }
+
+        private bool ValidarContato(Compromisso compromisso)
+        {
+            bool contatoValido = false;
+            List<Contato> contatos = repositorioContato.SelecionarTodos();
+            foreach (Contato c in contatos)
+            {
+                if (c.Numero == compromisso.Contato.Numero)
+                {
+                    contatoValido = true;
+                }
+            }
+
+            return contatoValido;
         }
     }
 }

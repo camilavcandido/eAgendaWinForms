@@ -11,10 +11,7 @@ namespace eAgenda.Infra.Arquivos
         private int contador = 0;
 
 
-        public RepositorioContato()
-        {
 
-        }
         public RepositorioContato(ISerializador serializador)
         {
             this.serializador = serializador;

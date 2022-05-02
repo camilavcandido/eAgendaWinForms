@@ -94,9 +94,7 @@ namespace eAgenda.Dominio
             StringBuilder sb = new StringBuilder();
 
             if (string.IsNullOrEmpty(Titulo))
-                sb.AppendLine("O título da tarefa é obrigatório!");
-
-         
+                sb.AppendLine("O título da tarefa é obrigatório!"); 
 
             if (sb.Length == 0)
                 sb.Append("REGISTRO_VALIDO");

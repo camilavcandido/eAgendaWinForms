@@ -15,13 +15,11 @@ namespace eAgendaWinForms.ModuloCompromisso
 {
     public partial class CadastroCompromisso : Form
     {
-
         private Compromisso compromisso;
         private RepositorioContato repositorioContato;
-
         public CadastroCompromisso()
         {
-            repositorioContato = new RepositorioContato();
+           
             InitializeComponent();
         }
 
@@ -44,22 +42,24 @@ namespace eAgendaWinForms.ModuloCompromisso
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
+            string strIDcontato = txtContatoCompromisso.Text;
+            int intIDcontato = Convert.ToInt32(strIDcontato);
+            Contato contato = repositorioContato.SelecionarRegistro(intIDcontato);
             try
             {
-                Contato contatoSelecionado = (Contato)listContatosCompromisso.SelectedItem;
-
                 Compromisso.Assunto = txtAssuntoCompromisso.Text;
                 Compromisso.Local = txtLocalCompromisso.Text;
                 compromisso.DataCompromisso = txtDataCompromisso.Value;
                 compromisso.HoraInicio = Convert.ToDateTime(txtHoraInicio.Text);
                 compromisso.HoraTermino = Convert.ToDateTime(txtHoraTermino.Text);
-                compromisso.Contato = contatoSelecionado;
+                compromisso.Contato = contato;
             }
             catch
             {
 
             }
         }
+
 
     }
 }

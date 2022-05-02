@@ -50,7 +50,12 @@ namespace eAgendaWinForms.ModuloTarefa
 
             DialogResult resultado = tela.ShowDialog();
 
-            if (resultado == DialogResult.OK)
+            if (ValidarTituloExiste(tela.Tarefa) == true)
+            {
+                MessageBox.Show("Título já cadastrado. Por favor, informe outro título.", "Cadastro de Tarefas",
+                  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (resultado == DialogResult.OK)
             {
 
                 string resultadoValidacao = tela.Tarefa.Validar();
@@ -162,5 +167,20 @@ namespace eAgendaWinForms.ModuloTarefa
             }
         }
 
+        public bool ValidarTituloExiste(Tarefa tarefa)
+        {
+            bool tituloExiste = false;
+
+            List<Tarefa> tarefas = repositorioTarefa.SelecionarTarefasPendentes();
+            foreach (Tarefa t in tarefas)
+            {
+                if(t.Titulo.ToLower() == tarefa.Titulo.ToLower())
+                {
+                    tituloExiste = true;
+                }
+            }
+
+            return tituloExiste;
+        }
     }
 }
