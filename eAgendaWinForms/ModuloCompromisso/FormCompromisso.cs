@@ -194,6 +194,8 @@ namespace eAgendaWinForms.ModuloCompromisso
         private bool ValidarHorarioCompromisso(Compromisso compromisso)
         {
             bool horarioDisponivel = true;
+
+           //verifica se o horário de inicio do novo compromisso está entre o horario de inicio e termino de um compromisso já cadastrado no mesmo dia;
             List<Compromisso> compromissosFuturos = repositorioCompromisso.SelecionarCompromissosFuturos();
             foreach (Compromisso c in compromissosFuturos)
             {
@@ -205,7 +207,10 @@ namespace eAgendaWinForms.ModuloCompromisso
                 }
 
             }
+
             return horarioDisponivel;
         }
+
+
     }
 }
