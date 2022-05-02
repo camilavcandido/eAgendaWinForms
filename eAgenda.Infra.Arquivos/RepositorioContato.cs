@@ -10,8 +10,6 @@ namespace eAgenda.Infra.Arquivos
         List<Contato> contatos;
         private int contador = 0;
 
-
-
         public RepositorioContato(ISerializador serializador)
         {
             this.serializador = serializador;

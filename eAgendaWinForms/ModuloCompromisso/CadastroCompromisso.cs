@@ -15,11 +15,15 @@ namespace eAgendaWinForms.ModuloCompromisso
 {
     public partial class CadastroCompromisso : Form
     {
+        private readonly ISerializador serializador;
+
         private Compromisso compromisso;
         private RepositorioContato repositorioContato;
+
         public CadastroCompromisso()
         {
-           
+            serializador = new SerializadorJson();
+            repositorioContato = new RepositorioContato(serializador);
             InitializeComponent();
         }
 
