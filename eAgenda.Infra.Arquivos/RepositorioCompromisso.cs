@@ -7,38 +7,41 @@ using System.Threading.Tasks;
 
 namespace eAgenda.Infra.Arquivos
 {
-    public class RepositorioCompromissoEmArquivo
+    public class RepositorioCompromisso
     {
 
         private readonly ISerializador serializador;
-        private readonly DataContext dataContext;
+        List<Compromisso> compromissos;
         private int contador = 0;
 
 
-        public RepositorioCompromissoEmArquivo(ISerializador serializador, DataContext dataContext)
+        public RepositorioCompromisso(ISerializador serializador)
         {
             this.serializador = serializador;
-            this.dataContext = dataContext;
-            dataContext.Compromissos.AddRange(serializador.CarregarDadosDoArquivo().Compromissos);
+
+            compromissos = serializador.CarregarCompromissosDoArquivo();
+
+            if (compromissos.Count > 0)
+                contador = compromissos.Max(x => x.Numero);
         }
 
         public List<Compromisso> SelecionarTodos()
         {
-            return dataContext.Compromissos;
+            return compromissos;
         }
 
         public void Inserir(Compromisso novoCompromisso)
         {
             novoCompromisso.Numero = ++contador;
 
-            dataContext.Compromissos.Add(novoCompromisso);
+            compromissos.Add(novoCompromisso);
 
-            serializador.GravarDadosEmArquivo(dataContext);
+            serializador.GravarCompromissosEmArquivo(compromissos);
         }
 
         public void Editar(Compromisso compromisso)
         {
-            foreach (var item in dataContext.Compromissos)
+            foreach (var item in compromissos)
             {
                 if (item.Numero == compromisso.Numero)
                 {
@@ -47,19 +50,18 @@ namespace eAgenda.Infra.Arquivos
                     item.DataCompromisso = compromisso.DataCompromisso;
                     item.HoraInicio = compromisso.HoraInicio;
                     item.HoraTermino = compromisso.HoraTermino;
-                    serializador.GravarDadosEmArquivo(dataContext);
                     break;
                 }
             }
-            
+            serializador.GravarCompromissosEmArquivo(compromissos);
 
         }
 
         public void Excluir(Compromisso compromisso)
         {
-            dataContext.Compromissos.Remove(compromisso);
+            compromissos.Remove(compromisso);
 
-            serializador.GravarDadosEmArquivo(dataContext);
+            serializador.GravarCompromissosEmArquivo(compromissos);
 
         }
 
@@ -67,7 +69,7 @@ namespace eAgenda.Infra.Arquivos
         public List<Compromisso> SelecionarCompromissosFuturos()
         {
 
-            return dataContext.Compromissos.Where(x => x.DataCompromisso.Date >= DateTime.Now.Date
+            return compromissos.Where(x => x.DataCompromisso.Date >= DateTime.Now.Date
             && x.HoraInicio > DateTime.Now.TimeOfDay)
                 .OrderBy(d => d.DataCompromisso).ToList();
         }
@@ -75,7 +77,7 @@ namespace eAgenda.Infra.Arquivos
         public List<Compromisso> SelecionarCompromissosPassados()
         {
 
-            return dataContext.Compromissos.Where(x => x.DataCompromisso.Date <= DateTime.Now.Date && x.HoraInicio > DateTime.Now.TimeOfDay).ToList();
+            return compromissos.Where(x => x.DataCompromisso.Date <= DateTime.Now.Date && x.HoraInicio < DateTime.Now.TimeOfDay).ToList();
 
 
         }
@@ -89,7 +91,7 @@ namespace eAgenda.Infra.Arquivos
         {
             List<Compromisso> registrosFiltrados = new List<Compromisso>();
 
-            foreach (Compromisso registro in dataContext.Compromissos)
+            foreach (Compromisso registro in compromissos)
                 if (condicao(registro))
                     registrosFiltrados.Add(registro);
 

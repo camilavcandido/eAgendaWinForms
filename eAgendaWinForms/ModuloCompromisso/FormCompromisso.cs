@@ -14,18 +14,16 @@ namespace eAgendaWinForms.ModuloCompromisso
 {
     public partial class FormCompromisso : Form
     {
-        private RepositorioCompromissoEmArquivo repositorioCompromisso;
-        private RepositorioContatoEmArquivo repositorioContato;
+        private RepositorioCompromisso repositorioCompromisso;
+        private RepositorioContato repositorioContato;
         public FormCompromisso()
         {
             InitializeComponent();
-            SerializadorEmJsonDotnet serializador = new SerializadorEmJsonDotnet();
-            DataContext dataContext = new DataContext();
-            repositorioCompromisso = new RepositorioCompromissoEmArquivo(serializador, dataContext);
-            repositorioContato = new RepositorioContatoEmArquivo(serializador, dataContext);
+            SerializadorJson serializador = new SerializadorJson();
+            repositorioCompromisso = new RepositorioCompromisso(serializador);
+            repositorioContato = new RepositorioContato(serializador);
             CarregarCompromissos();
         }
-
 
         private void CarregarCompromissos()
         {

@@ -4,40 +4,40 @@ using System.Linq;
 
 namespace eAgenda.Infra.Arquivos
 {
-    public class RepositorioTarefaEmArquivo 
+    public class RepositorioTarefa 
     {
         private readonly ISerializador serializador;
-        private readonly DataContext dataContext;
+        List<Tarefa> tarefas;
         private int contador = 0;
 
 
-        public RepositorioTarefaEmArquivo(ISerializador serializador, DataContext dataContext)
+        public RepositorioTarefa(ISerializador serializador)
         {
             this.serializador = serializador;
-            this.dataContext = dataContext;
 
-            dataContext.Tarefas.AddRange(serializador.CarregarDadosDoArquivo().Tarefas);
+            tarefas = serializador.CarregarTarefasDoArquivo();
 
+            if (tarefas.Count > 0)
+                contador = tarefas.Max(x => x.Numero);
         }
 
         public List<Tarefa> SelecionarTodos()
         {
-            return dataContext.Tarefas;
+            return tarefas;
         }
 
         public void Inserir(Tarefa novaTarefa)
         {
             novaTarefa.Numero = ++contador;
 
-            dataContext.Tarefas.Add(novaTarefa);
+            tarefas.Add(novaTarefa);
 
-            serializador.GravarDadosEmArquivo(dataContext);
-
+            serializador.GravarTarefasEmArquivo(tarefas);
         }
 
         public void Editar(Tarefa tarefa)
         {
-            foreach (var item in dataContext.Tarefas)
+            foreach (var item in tarefas)
             {
                 if (item.Numero == tarefa.Numero)
                 {
@@ -46,15 +46,14 @@ namespace eAgenda.Infra.Arquivos
                 }
             }
 
-            serializador.GravarDadosEmArquivo(dataContext);
+            serializador.GravarTarefasEmArquivo(tarefas);
         }
 
         public void Excluir(Tarefa tarefa)
         {
-            dataContext.Tarefas.Remove(tarefa);
+            tarefas.Remove(tarefa);
 
-            serializador.GravarDadosEmArquivo(dataContext);
-
+            serializador.GravarTarefasEmArquivo(tarefas);
         }
 
         public void AdicionarItens(Tarefa tarefaSelecionada, List<ItemTarefa> itens)
@@ -64,8 +63,7 @@ namespace eAgenda.Infra.Arquivos
                 tarefaSelecionada.AdicionarItem(item);
             }
 
-            serializador.GravarDadosEmArquivo(dataContext);
-
+            serializador.GravarTarefasEmArquivo(tarefas);
         }
 
         public void AtualizarItens(Tarefa tarefaSelecionada,
@@ -81,13 +79,12 @@ namespace eAgenda.Infra.Arquivos
                 tarefaSelecionada.MarcarPendente(item);
             }
 
-            serializador.GravarDadosEmArquivo(dataContext);
-
+            serializador.GravarTarefasEmArquivo(tarefas);
         }
 
         public List<Tarefa> SelecionarTarefasConcluidas()
         {
-            return dataContext.Tarefas.Where(x => x.CalcularPercentualConcluido() == 100).ToList();
+            return tarefas.Where(x => x.CalcularPercentualConcluido() == 100).ToList();
 
 
         }
@@ -95,7 +92,8 @@ namespace eAgenda.Infra.Arquivos
         public List<Tarefa> SelecionarTarefasPendentes()
         {
 
-        return dataContext.Tarefas.Where(x => x.CalcularPercentualConcluido() < 100).OrderByDescending(p => p.Prioridade).ToList();
+        return tarefas.Where(x => x.CalcularPercentualConcluido() < 100).OrderByDescending(p => p.Prioridade).ToList();
+
 
         }
     }
