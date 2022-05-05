@@ -69,15 +69,14 @@ namespace eAgenda.Infra.Arquivos
         public List<Compromisso> SelecionarCompromissosFuturos()
         {
 
-            return compromissos.Where(x => x.DataCompromisso.Date >= DateTime.Now.Date
-            && x.HoraInicio > DateTime.Now.TimeOfDay)
+            return compromissos.Where(x => x.DataCompromisso.Date >= DateTime.Now.Date)
                 .OrderBy(d => d.DataCompromisso).ToList();
         }
 
         public List<Compromisso> SelecionarCompromissosPassados()
         {
 
-            return compromissos.Where(x => x.DataCompromisso.Date <= DateTime.Now.Date && x.HoraInicio < DateTime.Now.TimeOfDay).ToList();
+            return compromissos.Where(x => x.DataCompromisso.Date <= DateTime.Now.Date).ToList();
 
 
         }
