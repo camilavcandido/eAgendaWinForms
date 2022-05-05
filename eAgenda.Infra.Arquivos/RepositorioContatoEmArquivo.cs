@@ -4,61 +4,63 @@ using System.Linq;
 
 namespace eAgenda.Infra.Arquivos
 {
-    public class RepositorioContato
+    public class RepositorioContatoEmArquivo
     {
         private readonly ISerializador serializador;
-        List<Contato> contatos;
+        private readonly DataContext dataContext;
         private int contador = 0;
 
-        public RepositorioContato(ISerializador serializador)
+        public RepositorioContatoEmArquivo(ISerializador serializador, DataContext dataContext)
         {
             this.serializador = serializador;
-
-            contatos = serializador.CarregarContatosDoArquivo();
-
-            if (contatos.Count > 0)
-                contador = contatos.Max(x => x.Numero);
+            this.dataContext = dataContext;
+            dataContext.Contatos.AddRange(serializador.CarregarDadosDoArquivo().Contatos);
         }
 
         public List<Contato> SelecionarTodos()
         {
-            return contatos;
+            return dataContext.Contatos;
         }
 
         public void Inserir(Contato novoContato)
         {
             novoContato.Numero = ++contador;
 
-            contatos.Add(novoContato);
+            dataContext.Contatos.Add(novoContato);
 
-            serializador.GravarContatosEmArquivo(contatos);
+            serializador.GravarDadosEmArquivo(dataContext);
         }
 
         public void Editar(Contato contato)
         {
-            foreach (var item in contatos)
+            foreach (var item in dataContext.Contatos)
             {
                 if (item.Numero == contato.Numero)
                 {
                     item.Nome = contato.Nome;
-
+                    item.Email = contato.Email;
+                    item.Telefone = contato.Telefone;
+                    item.Empresa = contato.Empresa;
+                    item.Cargo = contato.Cargo;
+                    serializador.GravarDadosEmArquivo(dataContext);
                     break;
                 }
             }
 
-            serializador.GravarContatosEmArquivo(contatos);
+           
+
         }
 
         public void Excluir(Contato contato)
         {
-            contatos.Remove(contato);
+            dataContext.Contatos.Remove(contato);
 
-            serializador.GravarContatosEmArquivo(contatos);
+            serializador.GravarDadosEmArquivo(dataContext);
         }
 
         public Contato SelecionarRegistro(int idSelecionado)
         {
-            foreach (Contato c in contatos)
+            foreach (Contato c in dataContext.Contatos)
             {
                 if (idSelecionado == c.Numero)
                     return c;

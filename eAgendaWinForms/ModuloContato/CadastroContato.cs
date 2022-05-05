@@ -9,7 +9,7 @@ namespace eAgendaWinForms.ModuloContato
 {
     public partial class CadastroContato : Form
     {
-        private RepositorioContato repositorioContato;
+        private RepositorioContatoEmArquivo repositorioContato;
 
         private Contato contato;
         public CadastroContato()

@@ -1,4 +1,5 @@
-﻿using eAgendaWinForms.ModuloCompromisso;
+﻿using eAgenda.Infra.Arquivos;
+using eAgendaWinForms.ModuloCompromisso;
 using eAgendaWinForms.ModuloContato;
 using eAgendaWinForms.ModuloTarefa;
 using System;
@@ -16,9 +17,19 @@ namespace eAgendaWinForms
     public partial class FormPrincipal : Form
     {
         private Form formAtivo;
+        private RepositorioTarefaEmArquivo repositorioTarefa;
+        private RepositorioContatoEmArquivo repositorioContato;
+        private RepositorioCompromissoEmArquivo repositorioCompromisso;
         public FormPrincipal()
         {
             InitializeComponent();
+            ISerializador serializador = new SerializadorEmJsonDotnet();
+
+            DataContext dataContext = new DataContext();
+
+            repositorioTarefa = new RepositorioTarefaEmArquivo(serializador, dataContext);
+            repositorioContato = new RepositorioContatoEmArquivo(serializador, dataContext);
+            repositorioCompromisso = new RepositorioCompromissoEmArquivo(serializador, dataContext);
         }
 
         private void MostrarTelaFormulario(Form frm)

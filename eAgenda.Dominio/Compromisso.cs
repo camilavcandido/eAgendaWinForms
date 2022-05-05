@@ -63,7 +63,6 @@ namespace eAgenda.Dominio
         }
 
 
-
         public override string ToString()
         {
             string contatoRelacionado = Contato is null ? "Não disponível" : Contato.Nome;

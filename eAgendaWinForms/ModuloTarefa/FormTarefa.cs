@@ -8,12 +8,13 @@ namespace eAgendaWinForms.ModuloTarefa
     public partial class FormTarefa : Form
     {
 
-        protected RepositorioTarefa repositorioTarefa;
+        protected RepositorioTarefaEmArquivo repositorioTarefa;
 
         public FormTarefa()
         {
-            SerializadorJson serializador = new SerializadorJson();
-            repositorioTarefa = new RepositorioTarefa(serializador);
+            SerializadorEmJsonDotnet serializador = new SerializadorEmJsonDotnet();
+            DataContext dataContext = new DataContext();
+            repositorioTarefa = new RepositorioTarefaEmArquivo(serializador, dataContext);
 
             InitializeComponent();
             CarregarTarefas();

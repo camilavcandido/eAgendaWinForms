@@ -10,14 +10,15 @@ namespace eAgendaWinForms.ModuloContato
 {
     public partial class FormContato : Form
     {
-        private RepositorioContato repositorioContato;
-        private RepositorioCompromisso repositorioCompromisso;
+        private RepositorioContatoEmArquivo repositorioContato;
+        private RepositorioCompromissoEmArquivo repositorioCompromisso;
 
         public FormContato()
         {
-            SerializadorJson serializador = new SerializadorJson();
-            repositorioContato = new RepositorioContato(serializador);
-            repositorioCompromisso = new RepositorioCompromisso(serializador);
+            SerializadorEmJsonDotnet serializador = new SerializadorEmJsonDotnet();
+            DataContext dataContext = new DataContext();
+            repositorioContato = new RepositorioContatoEmArquivo(serializador, dataContext);
+            repositorioCompromisso = new RepositorioCompromissoEmArquivo(serializador, dataContext);
             InitializeComponent();
             CarregarContatos();
         }
@@ -119,11 +120,23 @@ namespace eAgendaWinForms.ModuloContato
 
                     if (resultadoValidacao == "REGISTRO_VALIDO")
                     {
+
                         repositorioContato.Editar(tela.Contato);
                         MessageBox.Show("Contato Editado com sucesso!", "Cadastro de Contatos",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CarregarContatos();
 
+                        List<Compromisso> compromissos = repositorioCompromisso.SelecionarTodos();
+
+                        foreach (Compromisso compromisso in compromissos)
+                        {
+                            if (compromisso.Contato.Numero == contatoSelecionado.Numero)
+                            {
+
+                                compromisso.Contato = contatoSelecionado;
+                            }
+                        }
+
+                        CarregarContatos();
                     }
                     else
                         MessageBox.Show($"{resultadoValidacao}", "Cadastro de Contatos",

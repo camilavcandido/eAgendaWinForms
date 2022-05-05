@@ -18,15 +18,17 @@ namespace eAgendaWinForms.ModuloCompromisso
         private readonly ISerializador serializador;
 
         private Compromisso compromisso;
-        private RepositorioContato repositorioContato;
+        private RepositorioContatoEmArquivo repositorioContato;
 
         public CadastroCompromisso()
         {
-            serializador = new SerializadorJson();
-            repositorioContato = new RepositorioContato(serializador);
             InitializeComponent();
+          
+            serializador = new SerializadorEmJsonDotnet();
+            DataContext dataContext = new DataContext();
+            repositorioContato = new RepositorioContatoEmArquivo(serializador, dataContext);
             CarregarContatos();
-                  
+
         }
 
         private void CarregarContatos()
@@ -34,7 +36,8 @@ namespace eAgendaWinForms.ModuloCompromisso
             List<Contato> contatos = repositorioContato.SelecionarTodos();
             foreach (Contato c in contatos)
             {
-                comboBoxContatos.Items.Add(c);
+                comboBoxContatos.Items.Add(c.Nome);
+
             }
         }
 
@@ -46,30 +49,55 @@ namespace eAgendaWinForms.ModuloCompromisso
             }
             set
             {
+                Contato contatoSelecionado = (Contato)comboBoxContatos.SelectedItem;
+
                 compromisso = value;
                 txtAssuntoCompromisso.Text = compromisso.Assunto;
                 txtLocalCompromisso.Text = compromisso.Local;
-                txtDataCompromisso.Value = txtDataCompromisso.Value;
-              
+                if (compromisso.DataCompromisso < txtDataCompromisso.MinDate)
+                {
+                    txtDataCompromisso.Value = DateTime.Now;
+                }
+                else
+                {
+                    txtDataCompromisso.Value = compromisso.DataCompromisso;
+                }
+                txtHoraInicio.Text = compromisso.HoraInicio.ToString();
+                txtHoraTermino.Text = compromisso.HoraTermino.ToString();
 
+                if (!String.IsNullOrEmpty(comboBoxContatos.Text))
+                {
+                    comboBoxContatos.Text = compromisso.Contato.Nome;
+
+                }
             }
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            
-            Contato contatoSelecionado = (Contato)comboBoxContatos.SelectedItem;   
-   
-                Compromisso.Assunto = txtAssuntoCompromisso.Text;
-                Compromisso.Local = txtLocalCompromisso.Text;
-                compromisso.DataCompromisso = txtDataCompromisso.Value;
-                compromisso.HoraInicio = TimeSpan.Parse(txtHoraInicio.Text);
-                compromisso.HoraTermino = TimeSpan.Parse(txtHoraTermino.Text);
-                compromisso.Contato = contatoSelecionado;
-            
+
+
+            Compromisso.Assunto = txtAssuntoCompromisso.Text;
+            Compromisso.Local = txtLocalCompromisso.Text;
+            compromisso.DataCompromisso = txtDataCompromisso.Value;
+            compromisso.HoraInicio = TimeSpan.Parse(txtHoraInicio.Text);
+            compromisso.HoraTermino = TimeSpan.Parse(txtHoraTermino.Text);
+            compromisso.Contato = ReceberContato(comboBoxContatos.Text);
+
 
         }
 
+        private Contato ReceberContato(string nome)
+        {
+            List<Contato> contatos = repositorioContato.SelecionarTodos();
 
+            foreach (Contato contato in contatos)
+            {
+                if (contato.Nome == nome)
+                    return contato;
+            }
+
+            return null;
+        }
     }
 }
